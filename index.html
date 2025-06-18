@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Español - Duda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%); /* Rosa claro gradiente */
+            min-height: 100vh;
+            color: #5D3A54; /* Roxo acinzentado escuro para texto principal */
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 2.5rem 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem; /* Um pouco maior */
+            font-weight: 700;
+            color: #E91E63; /* Rosa choque vibrante */
+            text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.2);
+        }
+        header p {
+            font-size: 1.1rem;
+            color: #7c526c; /* Tom médio de rosa/roxo */
+            margin-top: 0.5rem;
+        }
+
+        /* Main Content - Lista de Aulas */
+        main {
+            min-height: calc(100vh - 320px); /* Ajustar conforme o footer */
+            padding-bottom: 3rem;
+        }
+
+        .clases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Grid responsivo */
+            gap: 2rem;
+        }
+
+        .clase-preview {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 1.5rem; /* Padding interno */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Transição mais "elástica" */
+            cursor: pointer;
+            border: 1px solid #f8c8dc; /* Borda rosa clara */
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.1);
+        }
+
+        .clase-preview:hover {
+            transform: translateY(-8px) scale(1.02); /* Efeito de levantar e leve zoom */
+            box-shadow: 0 12px 28px rgba(233, 30, 99, 0.25);
+            border-color: #E91E63;
+        }
+
+        .clase-preview-titulo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #D81B60; /* Rosa um pouco mais escuro */
+            margin-bottom: 0.5rem;
+        }
+
+        .clase-preview-fecha {
+            font-size: 0.85rem;
+            color: #a77791; /* Rosa/Roxo mais suave */
+            font-weight: 400;
+        }
+
+        /* Footer */
+        footer {
+            background: #F48FB1; /* Rosa médio para o footer */
+            color: #fff;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+            border-top: 3px solid #E91E63; /* Borda superior rosa vibrante */
+            border-radius: 25px 25px 0 0; /* Cantos superiores arredondados */
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex; /* Alterado para flex para melhor centralização em caso de um item */
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center; /* Centraliza os itens */
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 700; /* Destaque para o título da seção */
+            color: #ffffff; /* Texto branco para contraste */
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section p {
+            color: #fce4ec; /* Rosa bem clarinho para o texto do parágrafo */
+            font-size: 0.9rem;
+            max-width: 500px; /* Limita a largura para melhor leitura */
+            margin: 0 auto; /* Centraliza o parágrafo */
+        }
+
+        /* Página da Aula Detalhada */
+        .pagina-clase {
+            display: none;
+            background: #fffafb; /* Fundo branco levemente rosado */
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.15);
+            border: 1px solid #f8c8dc;
+        }
+
+        .pagina-clase.active {
+            display: block;
+        }
+
+        .pagina-clase h2 { /* Título da aula na página detalhada */
+            font-family: 'Montserrat', sans-serif; /* Fonte mais padrão para o título aqui */
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #C2185B; /* Rosa escuro */
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #F48FB1;
+            padding-bottom: 0.75rem;
+        }
+
+        .clase-contenido {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #5D3A54; /* Mesma cor do texto principal */
+            margin-bottom: 2rem;
+        }
+
+        .clase-contenido h3 { /* Subtítulos dentro do conteúdo da aula */
+            font-size: 1.4rem;
+            color: #D81B60; /* Rosa */
+            margin: 1.8rem 0 0.8rem 0;
+        }
+
+        .clase-contenido p {
+            margin-bottom: 1rem;
+        }
+
+        .clase-contenido img, .clase-contenido iframe {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block; /* Para centralizar com margin auto se necessário */
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .boton-volver {
+            background: linear-gradient(135deg, #EC407A, #D81B60); /* Gradiente rosa */
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 50px; /* Bem arredondado */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: block;
+            margin: 1rem auto 0 auto; /* Centralizado */
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+        }
+
+        .boton-volver:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
+            background: linear-gradient(135deg, #D81B60, #C2185B); /* Gradiente mais escuro no hover */
+        }
+
+        /* Controla visibilidade da página principal e das aulas */
+        .main-page-content {
+            display: block;
+        }
+
+        .main-page-content.hidden {
+            display: none;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .clases-grid {
+                grid-template-columns: 1fr; /* Uma coluna em telas menores */
+            }
+            .clase-preview {
+                padding: 1.2rem;
+            }
+            .pagina-clase {
+                padding: 1.5rem;
+            }
+            .pagina-clase h2 {
+                font-size: 1.8rem;
+            }
+            .footer-content {
+                 /* Já está como column, então ok */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="mainPageContent" class="main-page-content">
+            <header>
+                <h1>Modo Español</h1>
+                <p>El portafolio de Duda para las clases de Español</p>
+            </header>
+
+            <main>
+                <div class="clases-grid">
+                    <div class="clase-preview" onclick="mostrarPaginaClase('clase1')">
+                        <div class="clase-preview-titulo">Clase 1: ¡Hola! Presentaciones</div>
+                        <div class="clase-preview-fecha">2 de junio, 2025</div>
+                    </div>
+                    <div class="clase-preview" onclick="mostrarPaginaClase('clase2')">
+                        <div class="clase-preview-titulo">Clase 2: Mi Familia y Amigos</div>
+                        <div class="clase-preview-fecha">9 de junio, 2025</div>
+                    </div>
+
+                    </div>
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Sobre Este Sitio</h3>
+                        <p>Este es el portafolio de Duda para la clase de español del Profesor Niko. Aquí encontrarás todas las actividades y aprendizajes de nuestras clases, ¡todo en Modo Español!</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Sobre la Autora</h3>
+                        <p>Soy Duda, estudiante de informática en ETEP. Me encanta aprender cosas nuevas y este sitio es una forma creativa de registrar mi progreso en la clase de español. ¡Espero que te guste!</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <div id="clase1" class="pagina-clase">
+            <h2>Clase 1: ¡Hola! Presentaciones</h2>
+            <div class="clase-contenido">
+                <p>En nuestra primera clase con el Profesor Niko, nos enfocamos en aprender diferentes formas de saludar y presentarnos en español.</p>
+                <h3>¿Qué aprendimos?</h3>
+                <ul>
+                    <li>Saludos formales e informales (Hola, Buenos días, Buenas tardes, ¿Qué tal?, ¿Cómo estás?).</li>
+                    <li>Frases para presentarnos (Me llamo Duda, Soy Duda, Soy de Brasil).</li>
+                    <li>Preguntas básicas para conocer a alguien (¿Cómo te llamas?, ¿De dónde eres?).</li>
+                </ul>
+                <p>Fue una clase muy interactiva y divertida. ¡Ya estoy lista para la próxima!</p>
+                </div>
+            <button class="boton-volver" onclick="volverAPrincipal()">Volver</button>
+        </div>
+        <div id="clase2" class="pagina-clase">
+            <h2>Clase 2: Mi Familia y Amigos</h2>
+            <div class="clase-contenido">
+                <p>Esta semana exploramos el vocabulario para describir a nuestra familia y amigos.</p>
+                <h3>Temas principales:</h3>
+                <ul>
+                    <li>Miembros de la familia (madre, padre, hermano/a, abuelo/a, tío/a, primo/a).</li>
+                    <li>Adjetivos para describir personas (alto/a, bajo/a, simpático/a, inteligente).</li>
+                    <li>Presentar a nuestros amigos y describir nuestras relaciones.</li>
+                </ul>
+                <p>¡Practicamos mucho hablando sobre nuestras familias! El profesor Niko nos contó algunas anécdotas también.</p>
+                </div>
+            <button class="boton-volver" onclick="volverAPrincipal()">Volver</button>
+        </div>
+
+        </div>
+
+    <script>
+        function mostrarPaginaClase(idClase) {
+            // Esconder página principal
+            document.getElementById('mainPageContent').classList.add('hidden');
+            
+            // Esconder todas as páginas de aula (caso alguma esteja aberta)
+            const paginasClase = document.querySelectorAll('.pagina-clase');
+            paginasClase.forEach(pagina => pagina.classList.remove('active'));
+            
+            // Mostrar a página da aula selecionada
+            document.getElementById(idClase).classList.add('active');
+            window.scrollTo(0, 0); // Rola para o topo da página
+        }
+
+        function volverAPrincipal() {
+            // Esconder todas as páginas de aula
+            const paginasClase = document.querySelectorAll('.pagina-clase');
+            paginasClase.forEach(pagina => pagina.classList.remove('active'));
+            
+            // Mostrar página principal
+            document.getElementById('mainPageContent').classList.remove('hidden');
+            window.scrollTo(0, 0); // Rola para o topo da página
+        }
+    </script>
+</body>
+</html>
